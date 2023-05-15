@@ -29,7 +29,7 @@ class IconDialog {
       context: context,
       barrierDismissible: canGoBack,
       builder: (BuildContext context) {
-        return CustomDialogWidget(
+        return IconDialogWidget(
           title: title,
           iconTitle: iconTitle,
           content: content,
@@ -46,7 +46,7 @@ class IconDialog {
       context: context,
       barrierDismissible: canGoBack,
       builder: (BuildContext context) {
-        return CustomDialogWidget(
+        return IconDialogWidget(
           title: title,
           iconTitle: iconTitle,
           content: content,
@@ -62,7 +62,7 @@ class IconDialog {
   }
 }
 
-class CustomDialogWidget extends StatefulWidget {
+class IconDialogWidget extends StatefulWidget {
   final String title;
   final bool iconTitle;
   final String content;
@@ -74,7 +74,7 @@ class CustomDialogWidget extends StatefulWidget {
   final CustomButtonTheme buttonTheme;
   final AlertIconType iconType;
 
-  const CustomDialogWidget(
+  const IconDialogWidget(
       {Key? key,
       required this.title,
       this.iconTitle = false,
@@ -88,10 +88,10 @@ class CustomDialogWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<CustomDialogWidget> createState() => _CustomDialogWidgetState();
+  State<IconDialogWidget> createState() => _IconDialogWidgetState();
 }
 
-class _CustomDialogWidgetState extends State<CustomDialogWidget> with TickerProviderStateMixin {
+class _IconDialogWidgetState extends State<IconDialogWidget> with TickerProviderStateMixin {
 
   late final AnimationController _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 700));
   late final Animation<double> _animation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeInOutCirc));
