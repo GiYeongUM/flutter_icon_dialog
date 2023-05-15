@@ -1,3 +1,6 @@
+## 1.0.4
+- add pubignore
+
 ## 1.0.3
 - change function name dialog to show
 
