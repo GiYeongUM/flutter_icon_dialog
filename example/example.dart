@@ -1,5 +1,5 @@
-import 'package:awesome_flutter_widgets/flutter_icon_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icon_dialog/widgets/icon_dialog.dart';
 
 void main() {
   runApp(const ExampleApp());
@@ -37,12 +37,10 @@ class ExamplePage extends StatelessWidget {
             ElevatedButton(onPressed: (){
 
               IconDialog.dialog(
-                    context: context,
-                    title: 'title',
-                    content: 'This is icon',
-                    iconTitle: true,
-                    iconType: AlertIconType.alert,
-                  );
+                  context: context,
+                  title: 'title',
+                  content: 'Connect successfully',
+              );
 
                 }, child: const Text("save"))
           ],

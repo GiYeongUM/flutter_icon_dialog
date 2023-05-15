@@ -23,7 +23,7 @@ dependencies:
 
 Default for this widget is **Text Alert**.
 
-<img width="308" alt="" src="https://github.com/GiYeongUM/flutter_icon_dialog/raw/main/images/custom_dialog_text.png">
+<img width="308" alt="" src="https://github.com/GiYeongUM/flutter_icon_dialog/raw/main/images/custom_dialog_text.gif">
 
 ``` dart
 IconDialog.dialog(
@@ -41,6 +41,7 @@ Dialog can take advantage of icon title. The icon includes animation, [and here 
 
 <img width="308" alt="" src="https://github.com/GiYeongUM/flutter_icon_dialog/raw/main/images/custom_dialog_ios.gif">
 <img width="308" alt="" src="https://github.com/GiYeongUM/flutter_icon_dialog/raw/main/images/custom_dialog_check.gif">
+<img width="308" alt="" src="https://github.com/GiYeongUM/flutter_icon_dialog/raw/main/images/custom_dialog_bluetooth.gif">
 
 ``` dart
 IconDialog.dialog(

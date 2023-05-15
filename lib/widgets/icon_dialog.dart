@@ -21,13 +21,13 @@ enum AlertIconType {
 class IconDialog {
   static dialog({
     required BuildContext context, required String title, required String content,
-    bool iconTitle = false, Widget? widgets, bool? canGoBack, double radius = 8.0,
-    double? width, double insetPadding = 56.0, ButtonTheme buttonTheme = const ButtonTheme(),
+    bool iconTitle = false, Widget? widgets, bool canGoBack = true, double radius = 8.0,
+    double? width, double insetPadding = 56.0, CustomButtonTheme buttonTheme = const CustomButtonTheme(),
     AlertIconType iconType = AlertIconType.alert,
   }) {
     return Platform.isIOS || Platform.isMacOS ? showCupertinoDialog(
       context: context,
-      barrierDismissible: canGoBack ?? true,
+      barrierDismissible: canGoBack,
       builder: (BuildContext context) {
         return CustomDialogWidget(
           title: title,
@@ -44,7 +44,7 @@ class IconDialog {
       },
     ) : showDialog(
       context: context,
-      barrierDismissible: canGoBack ?? true,
+      barrierDismissible: canGoBack,
       builder: (BuildContext context) {
         return CustomDialogWidget(
           title: title,
@@ -67,11 +67,11 @@ class CustomDialogWidget extends StatefulWidget {
   final bool iconTitle;
   final String content;
   final Widget? widgets;
-  final bool? canGoBack;
+  final bool canGoBack;
   final double radius;
   final double? width;
   final double insetPadding;
-  final ButtonTheme buttonTheme;
+  final CustomButtonTheme buttonTheme;
   final AlertIconType iconType;
 
   const CustomDialogWidget(
@@ -84,7 +84,7 @@ class CustomDialogWidget extends StatefulWidget {
       this.insetPadding = 56.0,
       this.radius = 8.0,
       this.width,
-      this.buttonTheme = const ButtonTheme(), this.iconType = AlertIconType.alert})
+      this.buttonTheme = const CustomButtonTheme(), this.iconType = AlertIconType.alert})
       : super(key: key);
 
   @override
@@ -110,7 +110,7 @@ class _CustomDialogWidgetState extends State<CustomDialogWidget> with TickerProv
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => widget.canGoBack ?? true,
+      onWillPop: () async => widget.canGoBack,
       child: Dialog(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(widget.radius)),
@@ -215,7 +215,7 @@ class _CustomDialogWidgetState extends State<CustomDialogWidget> with TickerProv
   }
 }
 
-class ButtonTheme {
+class CustomButtonTheme {
   final Color iconColor;
   final double iconSize;
   final TextStyle titleStyle;
@@ -223,7 +223,7 @@ class ButtonTheme {
   final Color buttonColor;
   final Color buttonTextColor;
 
-  const ButtonTheme(
+  const CustomButtonTheme(
       {this.titleStyle = const TextStyle(),
       this.contentStyle = const TextStyle(),
       this.iconSize = 36.0,
