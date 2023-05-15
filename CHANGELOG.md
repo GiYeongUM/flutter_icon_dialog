@@ -1,3 +1,6 @@
+## 1.0.2
+- drop images on package
+
 ## 1.0.1
 - fix ButtonTheme
 
