@@ -36,7 +36,7 @@ class ExamplePage extends StatelessWidget {
           children: <Widget>[
             ElevatedButton(onPressed: (){
 
-              CustomDialog.dialog(
+              IconDialog.dialog(
                     context: context,
                     title: 'title',
                     content: 'This is icon',

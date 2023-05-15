@@ -18,7 +18,7 @@ enum AlertIconType {
   bluetooth,
 }
 
-class CustomDialog {
+class IconDialog {
   static dialog({
     required BuildContext context, required String title, required String content,
     bool iconTitle = false, Widget? widgets, bool? canGoBack, double radius = 8.0,
