@@ -33,7 +33,6 @@
 /android/
 /ios/
 /lib/main.dart
-/images/
 
 # Web related
 lib/generated_plugin_registrant.dart
