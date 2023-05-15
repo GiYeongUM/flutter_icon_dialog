@@ -26,7 +26,7 @@ Default for this widget is **Text Alert**.
 <img width="308" alt="" src="https://github.com/GiYeongUM/flutter_icon_dialog/raw/main/images/custom_dialog_text.gif">
 
 ``` dart
-IconDialog.dialog(
+IconDialog.show(
     context: context,
     title: 'Alert',
     content: 'Save successfully',
@@ -44,7 +44,7 @@ Dialog can take advantage of icon title. The icon includes animation, [and here 
 <img width="308" alt="" src="https://github.com/GiYeongUM/flutter_icon_dialog/raw/main/images/custom_dialog_bluetooth.gif">
 
 ``` dart
-IconDialog.dialog(
+IconDialog.show(
     context: context, 
     title: "Check", 
     content: "This is Icon", 
@@ -53,7 +53,7 @@ IconDialog.dialog(
 ```
 
 ``` dart
-IconDialog.dialog(
+IconDialog.show(
     context: context, 
     title: "Check", 
     content: "This is Icon", 

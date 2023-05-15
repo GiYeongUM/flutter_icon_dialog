@@ -1,3 +1,6 @@
+## 1.0.3
+- change function name dialog to show
+
 ## 1.0.2
 - drop images on package
 

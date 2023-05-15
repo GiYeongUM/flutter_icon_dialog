@@ -19,7 +19,7 @@ enum AlertIconType {
 }
 
 class IconDialog {
-  static dialog({
+  static show({
     required BuildContext context, required String title, required String content,
     bool iconTitle = false, Widget? widgets, bool canGoBack = true, double radius = 8.0,
     double? width, double insetPadding = 56.0, CustomButtonTheme buttonTheme = const CustomButtonTheme(),
