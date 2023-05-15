@@ -1,3 +1,6 @@
+## 1.0.5
+- update icon package version
+
 ## 1.0.4
 - add pubignore
 
