@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icon_dialog/widgets/icon_dialog.dart';
+import 'package:flutter_icon_dialog/flutter_icon_dialog.dart';
 
 void main() {
   runApp(const ExampleApp());

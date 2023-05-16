@@ -1,3 +1,6 @@
+## 1.1.0
+- add web widget
+
 ## 1.0.5
 - update icon package version
 
