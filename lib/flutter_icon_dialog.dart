@@ -1,7 +1,5 @@
 library flutter_icon_dialog;
 
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
@@ -45,7 +43,7 @@ class IconDialog {
           buttonTheme: buttonTheme,
         );
       },
-    ) : Platform.isIOS || Platform.isMacOS ? showCupertinoDialog(
+    ) : defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.macOS ? showCupertinoDialog(
       context: context,
       barrierDismissible: canGoBack,
       builder: (BuildContext context) {

@@ -1,3 +1,6 @@
+## 1.1.1
+- fix on web (remove Platform)
+
 ## 1.1.0
 - add web widget
 
