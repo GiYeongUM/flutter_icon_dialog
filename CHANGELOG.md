@@ -1,3 +1,6 @@
+## 1.1.2
+- add backgroundColor
+ 
 ## 1.1.1
 - fix on web (remove Platform)
 

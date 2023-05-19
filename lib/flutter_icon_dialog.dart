@@ -240,12 +240,14 @@ class CustomButtonTheme {
   final TextStyle contentStyle;
   final Color buttonColor;
   final Color buttonTextColor;
+  final Color backgroundColor;
 
   const CustomButtonTheme(
       {this.titleStyle = const TextStyle(),
       this.contentStyle = const TextStyle(),
       this.iconSize = 36.0,
       this.iconColor = Colors.black,
+      this.backgroundColor = Colors.white,
       this.buttonColor = Colors.black,
       this.buttonTextColor = Colors.white});
 }
