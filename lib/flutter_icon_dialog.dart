@@ -137,6 +137,7 @@ class _IconDialogWidgetState extends State<IconDialogWidget> with TickerProvider
           width: widget.width ?? 300,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(widget.radius),
+            color: widget.buttonTheme.backgroundColor
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,

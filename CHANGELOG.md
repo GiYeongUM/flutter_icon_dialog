@@ -1,3 +1,6 @@
+## 1.1.3
+- fix backgroundColor issue
+
 ## 1.1.2
 - add backgroundColor
  
