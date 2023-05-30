@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
-import 'package:icon_animated/widgets/icon_animated.dart';
+import 'package:icon_animated/icon_animated.dart';
 
 enum AlertIconType {
   check,
@@ -14,7 +14,7 @@ enum AlertIconType {
   trendingDown,
   search,
   message,
-  plus,
+  add,
   download,
   menu,
   bluetooth,
@@ -80,7 +80,7 @@ class IconDialog {
   }
 }
 
-class IconDialogWidget extends StatefulWidget {
+class IconDialogWidget extends StatelessWidget {
   final String title;
   final bool iconTitle;
   final String content;
@@ -106,76 +106,56 @@ class IconDialogWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<IconDialogWidget> createState() => _IconDialogWidgetState();
-}
-
-class _IconDialogWidgetState extends State<IconDialogWidget> with TickerProviderStateMixin {
-
-  late final AnimationController _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 700));
-  late final Animation<double> _animation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeInOutCirc));
-
-  var isDisposed = false;
-
-  @override
-  void initState() {
-    if (isDisposed) {
-      return;
-    }
-    _animationController.forward();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => widget.canGoBack,
+      onWillPop: () async => canGoBack,
       child: Dialog(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(widget.radius)),
-        insetPadding: EdgeInsets.symmetric(horizontal: widget.insetPadding),
+            borderRadius: BorderRadius.circular(radius)),
+        insetPadding: EdgeInsets.symmetric(horizontal: insetPadding),
         child: Container(
-          width: widget.width ?? 300,
+          width: width ?? 300,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(widget.radius),
-            color: widget.buttonTheme.backgroundColor
+            borderRadius: BorderRadius.circular(radius),
+            color: buttonTheme.backgroundColor
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              widget.iconTitle
+              iconTitle
                   ? Container(
                       margin: const EdgeInsets.only(top: 8, bottom: 32),
                       child: IconAnimated(
-                        color: widget.buttonTheme.iconColor,
-                        progress: _animation,
-                        size: widget.buttonTheme.iconSize,
-                        iconType: typeChanger(widget.iconType),
+                        color: buttonTheme.iconColor,
+                        active: true,
+                        size: buttonTheme.iconSize,
+                        iconType: typeChanger(iconType),
                       ),
                     )
                   : Container(
                       margin: const EdgeInsets.only(top: 16, bottom: 32),
                       child: Text(
-                        widget.title,
-                        style: widget.buttonTheme.titleStyle,
+                        title,
+                        style: buttonTheme.titleStyle,
                       ),
                     ),
               Text(
-                widget.content,
+                content,
                 textAlign: TextAlign.center,
-                style: widget.buttonTheme.contentStyle,
+                style: buttonTheme.contentStyle,
               ),
               const SizedBox(
                 height: 40,
               ),
-              widget.widgets ??
+              widgets ??
                   GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        color: widget.buttonTheme.buttonColor,
+                        color: buttonTheme.buttonColor,
                         borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(8.0),
                             bottomRight: Radius.circular(8.0)),
@@ -185,8 +165,8 @@ class _IconDialogWidgetState extends State<IconDialogWidget> with TickerProvider
                       child: Center(
                         child: Text(
                           "OK",
-                          style: widget.buttonTheme.contentStyle.copyWith(
-                              color: widget.buttonTheme.buttonTextColor),
+                          style: buttonTheme.contentStyle.copyWith(
+                              color: buttonTheme.buttonTextColor),
                         ),
                       ),
                     ),
@@ -214,8 +194,8 @@ class _IconDialogWidgetState extends State<IconDialogWidget> with TickerProvider
         return IconType.search;
       case AlertIconType.message:
         return IconType.message;
-      case AlertIconType.plus:
-        return IconType.plus;
+      case AlertIconType.add:
+        return IconType.add;
       case AlertIconType.download:
         return IconType.download;
       case AlertIconType.menu:
@@ -223,14 +203,6 @@ class _IconDialogWidgetState extends State<IconDialogWidget> with TickerProvider
       case AlertIconType.bluetooth:
         return IconType.bluetooth;
     }
-  }
-
-  @override
-  void dispose() {
-    isDisposed = true;
-    _animationController.stop();
-    _animationController.dispose();
-    super.dispose();
   }
 }
 

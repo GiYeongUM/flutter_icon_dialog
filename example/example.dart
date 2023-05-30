@@ -39,6 +39,7 @@ class ExamplePage extends StatelessWidget {
               IconDialog.show(
                   context: context,
                   title: 'title',
+                  iconTitle: true,
                   content: 'Connect successfully',
               );
 

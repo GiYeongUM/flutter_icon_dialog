@@ -1,3 +1,6 @@
+## 1.2.0
+- fix package update
+
 ## 1.1.3
 - fix backgroundColor issue
 
