@@ -1,3 +1,6 @@
+## 1.2.1
+- icon package update
+
 ## 1.2.0
 - fix package update
 
