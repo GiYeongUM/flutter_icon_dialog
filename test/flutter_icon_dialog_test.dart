@@ -26,7 +26,7 @@ void main() {
           ),
         ),
       );
-      final closed = IconDialog.show<void>(
+      final closed = showIconDialog<void>(
         context: context,
         title: 'Done',
         content: 'Saved',
@@ -60,7 +60,7 @@ void main() {
           ),
         ),
       );
-      final closed = IconDialog.show<void>(
+      final closed = showIconDialog<void>(
         context: context,
         title: 'Confirm',
         content: 'Please confirm',
@@ -92,11 +92,11 @@ void main() {
         ),
       ),
     );
-    final result = IconDialog.show<bool>(
+    final result = showIconDialog<bool>(
       context: context,
       title: 'Confirm',
       content: '',
-      widgets: Builder(
+      actions: Builder(
         builder: (dialogContext) => TextButton(
           onPressed: () => Navigator.pop(dialogContext, true),
           child: const Text('Accept'),
