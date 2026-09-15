@@ -1,75 +1,62 @@
 # flutter_icon_dialog
 
-This widget is a simple dialog that deviates from the complex dialog of the flutter.
+Customizable dialogs with animated icons and platform-aware route transitions.
 
-[![Flutter](https://img.shields.io/badge/Platform-Flutter-blue.svg)](https://flutter.dev/)
+## Installation
 
-## Features 
+Requires Flutter 3.32+ and Dart 3.8+.
 
-- **Easier**
-- [Animated Icons](https://pub.dev/packages/icon_animated)
-- Platform matched widget (Android, iOS)
-
-## ⚡ [Installation](https://flutter.dev/docs/development/packages-and-plugins/using-packages)
-
-```yaml
-dependencies:
-  flutter_icon_dialog: ^<latest_version>
+```sh
+flutter pub add flutter_icon_dialog
 ```
 
-## 💪 Usage
+## Usage
 
-## 1. text dialog
+```dart
+import 'package:flutter_icon_dialog/flutter_icon_dialog.dart';
 
-Default for this widget is **Text Alert**.
-
-<img width="308" alt="" src="https://github.com/GiYeongUM/flutter_icon_dialog/raw/main/images/custom_dialog_text.gif">
-
-``` dart
-IconDialog.show(
-    context: context,
-    title: 'Alert',
-    content: 'Save successfully',
+await IconDialog.show<void>(
+  context: context,
+  title: 'Saved',
+  content: 'Your changes have been saved.',
+  iconTitle: true,
+  iconType: AlertIconType.check,
 );
 ```
 
+Set `iconTitle: false` (the default) for a text title.
+Use `CustomButtonTheme` to customize the icon, text, background, and button.
+Use `widgets` for custom actions and `Navigator.pop(dialogContext, result)`
+to return a value from `IconDialog.show<T>`.
 
-## 2. icon dialog 
+`canGoBack: false` blocks barrier and system-back dismissal. The confirmation
+button and explicit Navigator.pop calls still close the dialog.
 
-Dialog can take advantage of icon title. The icon includes animation, [and here are the icons](https://pub.dev/packages/icon_animated) that you can use.
+Native iOS and macOS use Cupertino route transitions; other platforms and web
+use Material route transitions. The dialog body is customizable on every platform.
+Long content scrolls to fit the available height.
 
+![Icon dialog](https://github.com/GiYeongUM/flutter_icon_dialog/raw/main/images/custom_dialog_check.gif)
 
-<img width="308" alt="" src="https://github.com/GiYeongUM/flutter_icon_dialog/raw/main/images/custom_dialog_ios.gif">
-<img width="308" alt="" src="https://github.com/GiYeongUM/flutter_icon_dialog/raw/main/images/custom_dialog_check.gif">
-<img width="308" alt="" src="https://github.com/GiYeongUM/flutter_icon_dialog/raw/main/images/custom_dialog_bluetooth.gif">
+## Development
 
-``` dart
-IconDialog.show(
-    context: context, 
-    title: "Check", 
-    content: "This is Icon", 
-    iconTitle: true
-);
+```sh
+flutter pub get
+dart format --output=none --set-exit-if-changed lib example test
+flutter analyze --fatal-infos
+flutter test
+flutter pub publish --dry-run
 ```
 
-``` dart
-IconDialog.show(
-    context: context, 
-    title: "Check", 
-    content: "This is Icon", 
-    iconTitle: true,
-    iconType: AlertIconType.check,
-);
-```
+CI checks the minimum supported Flutter version and the latest stable channel.
 
-## 3. platform matched dialog
+## Migration
 
-Dialog works differently depending on the platform. Animation works differently depending on Android or iOS.
+This release requires Dart 3.8 and Flutter 3.32 or newer. Existing constructor
+and method arguments remain supported. See [CHANGELOG.md](CHANGELOG.md) for fixes.
 
-<img width="308" alt="" src="https://github.com/GiYeongUM/flutter_icon_dialog/raw/main/images/custom_dialog_android.gif">
-<img width="308" alt="" src="https://github.com/GiYeongUM/flutter_icon_dialog/raw/main/images/custom_dialog_ios.gif">
+## License
 
-### That's it! Try it.
-
+MIT. See [LICENSE](LICENSE).
 
 

@@ -1,3 +1,11 @@
+## 1.3.0
+
+- Update icon_animated to 1.3.0.
+- Require Dart 3.8 and Flutter 3.32 or newer; adopt flutter_lints 6.
+- Forward the selected icon on every platform and return typed dialog results.
+- Use PopScope for back navigation and scroll long content.
+- Use an accessible confirmation button and add route regression tests.
+
 ## 1.2.1
 - icon package update
 

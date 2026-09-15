@@ -1,11 +1,10 @@
-library flutter_icon_dialog;
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:icon_animated/icon_animated.dart';
 
+/// Icons supported by [IconDialog].
 enum AlertIconType {
   check,
   fail,
@@ -20,66 +19,55 @@ enum AlertIconType {
   bluetooth,
 }
 
+/// Shows an animated icon dialog using the platform's route transition.
 class IconDialog {
-  static show({
-    required BuildContext context, required String title, required String content,
-    bool iconTitle = false, Widget? widgets, bool canGoBack = true, double radius = 8.0,
-    double? width, double insetPadding = 56.0, CustomButtonTheme buttonTheme = const CustomButtonTheme(),
+  /// Returns the result passed to Navigator.pop when the dialog closes.
+  static Future<T?> show<T>({
+    required BuildContext context,
+    required String title,
+    required String content,
+    bool iconTitle = false,
+    Widget? widgets,
+    bool canGoBack = true,
+    double radius = 8.0,
+    double? width,
+    double insetPadding = 56.0,
+    CustomButtonTheme buttonTheme = const CustomButtonTheme(),
     AlertIconType iconType = AlertIconType.alert,
   }) {
-    return kIsWeb ? showDialog(
+    Widget builder(BuildContext context) => IconDialogWidget(
+      title: title,
+      content: content,
+      iconTitle: iconTitle,
+      widgets: widgets,
+      canGoBack: canGoBack,
+      radius: radius,
+      width: width,
+      insetPadding: insetPadding,
+      buttonTheme: buttonTheme,
+      iconType: iconType,
+    );
+
+    final useCupertino =
+        !kIsWeb &&
+        (defaultTargetPlatform == TargetPlatform.iOS ||
+            defaultTargetPlatform == TargetPlatform.macOS);
+    if (useCupertino) {
+      return showCupertinoDialog<T>(
+        context: context,
+        barrierDismissible: canGoBack,
+        builder: builder,
+      );
+    }
+    return showDialog<T>(
       context: context,
       barrierDismissible: canGoBack,
-      builder: (BuildContext context) {
-        return IconDialogWidget(
-          title: title,
-          iconTitle: iconTitle,
-          content: content,
-          widgets: widgets,
-          canGoBack: canGoBack,
-          radius: radius,
-          width: width,
-          insetPadding: insetPadding,
-          buttonTheme: buttonTheme,
-        );
-      },
-    ) : defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.macOS ? showCupertinoDialog(
-      context: context,
-      barrierDismissible: canGoBack,
-      builder: (BuildContext context) {
-        return IconDialogWidget(
-          title: title,
-          iconTitle: iconTitle,
-          content: content,
-          widgets: widgets,
-          canGoBack: canGoBack,
-          radius: radius,
-          width: width,
-          insetPadding: insetPadding,
-          buttonTheme: buttonTheme,
-          iconType: iconType,
-        );
-      },
-    ) : showDialog(
-      context: context,
-      barrierDismissible: canGoBack,
-      builder: (BuildContext context) {
-        return IconDialogWidget(
-          title: title,
-          iconTitle: iconTitle,
-          content: content,
-          widgets: widgets,
-          canGoBack: canGoBack,
-          radius: radius,
-          width: width,
-          insetPadding: insetPadding,
-          buttonTheme: buttonTheme,
-        );
-      },
+      builder: builder,
     );
   }
 }
 
+/// The dialog body, also available for custom routes.
 class IconDialogWidget extends StatelessWidget {
   final String title;
   final bool iconTitle;
@@ -92,94 +80,98 @@ class IconDialogWidget extends StatelessWidget {
   final CustomButtonTheme buttonTheme;
   final AlertIconType iconType;
 
-  const IconDialogWidget(
-      {Key? key,
-      required this.title,
-      this.iconTitle = false,
-      this.content = '',
-      this.widgets,
-      this.canGoBack = true,
-      this.insetPadding = 56.0,
-      this.radius = 8.0,
-      this.width,
-      this.buttonTheme = const CustomButtonTheme(), this.iconType = AlertIconType.alert})
-      : super(key: key);
+  const IconDialogWidget({
+    super.key,
+    required this.title,
+    this.iconTitle = false,
+    this.content = '',
+    this.widgets,
+    this.canGoBack = true,
+    this.insetPadding = 56.0,
+    this.radius = 8.0,
+    this.width,
+    this.buttonTheme = const CustomButtonTheme(),
+    this.iconType = AlertIconType.alert,
+  }) : assert(radius >= 0),
+       assert(insetPadding >= 0),
+       assert(width == null || (width > 0 && width < double.infinity));
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => canGoBack,
+    return PopScope(
+      canPop: canGoBack,
       child: Dialog(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius)),
+          borderRadius: BorderRadius.circular(radius),
+        ),
         insetPadding: EdgeInsets.symmetric(horizontal: insetPadding),
         child: Container(
           width: width ?? 300,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(radius),
-            color: buttonTheme.backgroundColor
+            color: buttonTheme.backgroundColor,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              iconTitle
-                  ? Container(
-                      margin: const EdgeInsets.only(top: 8, bottom: 32),
-                      child: IconAnimated(
-                        color: buttonTheme.iconColor,
-                        active: true,
-                        size: buttonTheme.iconSize,
-                        iconType: typeChanger(iconType),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                iconTitle
+                    ? Container(
+                        margin: const EdgeInsets.only(top: 8, bottom: 32),
+                        child: Semantics(
+                          label: title,
+                          child: IconAnimated(
+                            color: buttonTheme.iconColor,
+                            active: true,
+                            size: buttonTheme.iconSize,
+                            iconType: typeChanger(iconType),
+                          ),
+                        ),
+                      )
+                    : Container(
+                        margin: const EdgeInsets.only(top: 16, bottom: 32),
+                        child: Text(title, style: buttonTheme.titleStyle),
                       ),
-                    )
-                  : Container(
-                      margin: const EdgeInsets.only(top: 16, bottom: 32),
-                      child: Text(
-                        title,
-                        style: buttonTheme.titleStyle,
-                      ),
-                    ),
-              Text(
-                content,
-                textAlign: TextAlign.center,
-                style: buttonTheme.contentStyle,
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              widgets ??
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: buttonTheme.buttonColor,
-                        borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(8.0),
-                            bottomRight: Radius.circular(8.0)),
-                      ),
-                      height: 40,
+                Text(
+                  content,
+                  textAlign: TextAlign.center,
+                  style: buttonTheme.contentStyle,
+                ),
+                const SizedBox(height: 40),
+                widgets ??
+                    SizedBox(
                       width: double.infinity,
-                      child: Center(
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: buttonTheme.buttonColor,
+                          foregroundColor: buttonTheme.buttonTextColor,
+                          minimumSize: const Size(0, 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              bottom: Radius.circular(radius),
+                            ),
+                          ),
+                        ),
+                        onPressed: () => Navigator.pop(context),
                         child: Text(
-                          "OK",
+                          'OK',
                           style: buttonTheme.contentStyle.copyWith(
-                              color: buttonTheme.buttonTextColor),
+                            color: buttonTheme.buttonTextColor,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  typeChanger(AlertIconType iconType){
-    switch(iconType) {
+  IconType typeChanger(AlertIconType iconType) {
+    switch (iconType) {
       case AlertIconType.check:
         return IconType.check;
       case AlertIconType.fail:
@@ -206,6 +198,8 @@ class IconDialogWidget extends StatelessWidget {
   }
 }
 
+/// Appearance of the icon, text, and confirmation button.
+@immutable
 class CustomButtonTheme {
   final Color iconColor;
   final double iconSize;
@@ -215,12 +209,13 @@ class CustomButtonTheme {
   final Color buttonTextColor;
   final Color backgroundColor;
 
-  const CustomButtonTheme(
-      {this.titleStyle = const TextStyle(),
-      this.contentStyle = const TextStyle(),
-      this.iconSize = 36.0,
-      this.iconColor = Colors.black,
-      this.backgroundColor = Colors.white,
-      this.buttonColor = Colors.black,
-      this.buttonTextColor = Colors.white});
+  const CustomButtonTheme({
+    this.titleStyle = const TextStyle(),
+    this.contentStyle = const TextStyle(),
+    this.iconSize = 36.0,
+    this.iconColor = Colors.black,
+    this.backgroundColor = Colors.white,
+    this.buttonColor = Colors.black,
+    this.buttonTextColor = Colors.white,
+  });
 }

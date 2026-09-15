@@ -12,9 +12,7 @@ class ExampleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'IconDialog Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const ExamplePage(),
     );
   }
@@ -25,25 +23,23 @@ class ExamplePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('IconDialog'),
-      ),
+      appBar: AppBar(title: const Text('IconDialog')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(onPressed: (){
-
-              IconDialog.show(
+            ElevatedButton(
+              onPressed: () {
+                IconDialog.show(
                   context: context,
                   title: 'title',
                   iconTitle: true,
                   content: 'Connect successfully',
-              );
-
-                }, child: const Text("save"))
+                );
+              },
+              child: const Text("save"),
+            ),
           ],
         ),
       ),
