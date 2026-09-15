@@ -1,6 +1,6 @@
 name: flutter_icon_dialog
 description: Customizable Flutter dialogs with animated status icons, platform-aware transitions, and accessible confirmation buttons.
-version: 1.3.0
+version: 2.0.0
 homepage: https://github.com/GiYeongUM/flutter_icon_dialog
 repository: https://github.com/GiYeongUM/flutter_icon_dialog
 issue_tracker: https://github.com/GiYeongUM/flutter_icon_dialog/issues
@@ -12,7 +12,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  icon_animated: ^1.3.0
+  icon_animated: ^2.0.0
 
 dev_dependencies:
   flutter_test:
